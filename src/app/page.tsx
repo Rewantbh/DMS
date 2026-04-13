@@ -1,6 +1,32 @@
+'use client';
+import { useState } from 'react';
 import Image from "next/image";
 
 export default function Home() {
+  const [status, setStatus] = useState(''); // '', 'sending', 'success', 'error'
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('sending');
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    
+    // Replace YOUR_FORM_ID with the actual ID from Formspree
+    const response = await fetch("https://formspree.io/f/mqajenke", {
+      method: "POST",
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      setStatus('success');
+      form.reset();
+    } else {
+      setStatus('error');
+    }
+  };
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
@@ -436,11 +462,39 @@ export default function Home() {
               <p style={{ color: 'var(--text-light)', marginBottom: '2rem' }}>
                 Interested in sponsorship or volunteering? Leave a message and we will get back to you namaste-style.
               </p>
-              <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <input type="text" placeholder="Your Name" style={{ padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-offset)' }} />
-                <input type="email" placeholder="Your Email" style={{ padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-offset)' }} />
-                <textarea placeholder="Message" rows={4} style={{ padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-offset)' }}></textarea>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <input type="text" name="name" placeholder="Your Name" required style={{ padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-offset)' }} />
+                <input type="email" name="email" placeholder="Your Email" required style={{ padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-offset)' }} />
+                <textarea name="message" placeholder="Message" rows={4} required style={{ padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-offset)' }}></textarea>
+                
+                {status === 'success' ? (
+                  <div style={{ 
+                    padding: '1rem', 
+                    background: 'rgba(34, 197, 94, 0.1)', 
+                    color: 'rgb(21, 128, 61)', 
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    fontWeight: 600,
+                    border: '1px solid rgba(34, 197, 94, 0.2)'
+                  }}>
+                    Namaste! Your message has been sent.
+                  </div>
+                ) : (
+                  <button 
+                    type="submit" 
+                    className="btn btn-primary" 
+                    disabled={status === 'sending'}
+                    style={{ width: '100%', opacity: status === 'sending' ? 0.7 : 1 }}
+                  >
+                    {status === 'sending' ? 'Sending...' : 'Send Message'}
+                  </button>
+                )}
+                
+                {status === 'error' && (
+                  <p style={{ color: '#ef4444', fontSize: '0.9rem', textAlign: 'center' }}>
+                    Oops! There was a problem. Please try again or use WhatsApp.
+                  </p>
+                )}
               </form>
             </div>
           </div>

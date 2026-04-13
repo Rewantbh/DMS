@@ -446,7 +446,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 style={{ fontSize: '1rem', color: 'var(--primary)' }}>EMAIL</h4>
-                  <p>info@himalaya-development.org</p>
+                  <p>thedolphinmagicschool@gmail.com</p>
                 </div>
                 <div>
                   <h4 style={{ fontSize: '1rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>FOLLOW US</h4>

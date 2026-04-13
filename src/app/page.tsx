@@ -12,7 +12,7 @@ export default function Home() {
     const data = new FormData(form);
     
     // Replace YOUR_FORM_ID with the actual ID from Formspree
-    const response = await fetch("https://formspree.io/f/mqajenke", {
+    const response = await fetch("https://formspree.io/f/mgoreklo", {
       method: "POST",
       body: data,
       headers: {

@@ -56,7 +56,7 @@ export default function Home() {
             A Bright Future for Every Child in <span style={{ color: 'var(--primary)' }}>Nepal</span>
           </h1>
           <p style={{ fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem', color: 'rgba(255,255,255,0.9)' }}>
-            Dolphin Magic School provides a holistic, Waldorf-inspired education to marginalized children 
+            Dolphin Magic School provides a holistic, Montessori-based education to marginalized children 
             in the Pharping Valley. A community beacon of hope since 2011.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
